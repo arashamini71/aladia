@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2018",
+    "baseUrl": "./",
+    "paths": {
+      "@common/*": ["apps/common/src/*"]
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false,
+    "strict": true
+  }
+}

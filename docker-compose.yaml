@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  gateway:
+    container_name: gateway-api
+    build:
+      context: .
+      dockerfile: ./gateway.Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - aladia-network
+    restart: unless-stopped
+
+  authentication:
+    container_name: authentication-api
+    build:
+      context: .
+      dockerfile: ./auth.Dockerfile
+    ports:
+      - 3002:3002
+    networks:
+      - aladia-network
+    restart: unless-stopped
+    environment:
+      - MONGO_URI=mongodb://mongodb/aladia
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: aladia-db
+    image: mongo:5.0.27-focal
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_volume:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: aladia
+    networks:
+      - aladia-network
+    restart: unless-stopped
+
+volumes:
+  mongo_volume:
+    driver: local
+
+networks:
+  aladia-network:

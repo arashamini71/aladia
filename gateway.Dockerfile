@@ -1,0 +1,10 @@
+FROM node:22.15.0-alpine3.21
+RUN addgroup app && adduser -S -G app app
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY apps/gateway ./apps/gateway
+EXPOSE 3000
+CMD ["npm", "run", "start:gateway"]
