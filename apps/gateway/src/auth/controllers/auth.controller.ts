@@ -17,6 +17,6 @@ export class AuthController {
   @Get('users')
   @ApiResponse({ status: 200, type: [UserRto] })
   async users() {
-    return this.authService.listUsers();
+    return await this.authService.listUsers();
   }
 }

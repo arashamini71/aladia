@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
+COPY . .
 
-COPY apps/gateway ./apps/gateway
 EXPOSE 3000
 CMD ["npm", "run", "start:gateway"]

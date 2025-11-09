@@ -11,13 +11,14 @@ export class NetworkingService {
 
   async registerUser(registerUserDto: RegisterUserDto): Promise<UserRto> {
     return await firstValueFrom(
-      this.client.emit<UserRto>(Events.RegisterUser, registerUserDto),
+      this.client.send<UserRto>(Events.RegisterUser, registerUserDto),
     );
   }
 
   async listUsers(): Promise<UserRto[]> {
-    return await firstValueFrom(
-      this.client.emit<UserRto[]>(Events.ListUsers, null),
+    const response = await firstValueFrom(
+      this.client.send<UserRto[]>(Events.ListUsers, {}),
     );
+    return response;
   }
 }

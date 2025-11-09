@@ -10,7 +10,13 @@ services:
     networks:
       - aladia-network
     restart: unless-stopped
-
+    depends_on:
+      - authentication
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/health']
+      interval: 30s
+      timeout: 5s
+      retries: 3
   authentication:
     container_name: authentication-api
     build:
@@ -25,6 +31,11 @@ services:
       - MONGO_URI=mongodb://mongodb/aladia
     depends_on:
       - mongodb
+    healthcheck:
+      test: ['CMD', 'nc', '-z', 'localhost', '3002']
+      interval: 30s
+      timeout: 5s
+      retries: 3
 
   mongodb:
     container_name: aladia-db
@@ -38,6 +49,11 @@ services:
     networks:
       - aladia-network
     restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'mongo', '--eval', "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
 volumes:
   mongo_volume:

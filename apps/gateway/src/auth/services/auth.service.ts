@@ -8,10 +8,10 @@ export class AuthService {
   constructor(private networkingService: NetworkingService) {}
 
   async register(registerUserDto: RegisterUserDto): Promise<UserRto> {
-    return this.networkingService.registerUser(registerUserDto);
+    return await this.networkingService.registerUser(registerUserDto);
   }
 
   async listUsers(): Promise<UserRto[]> {
-    return this.networkingService.listUsers();
+    return await this.networkingService.listUsers();
   }
 }
