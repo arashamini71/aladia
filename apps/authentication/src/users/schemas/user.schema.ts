@@ -15,9 +15,6 @@ export class User extends Document {
   @Prop({ type: String, required: true })
   email: string;
 
-  @Prop({ type: String })
-  token: string;
-
   @Prop({
     type: String,
     required: true,

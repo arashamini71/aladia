@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../schemas/user.schema';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersRepository {
@@ -18,5 +19,9 @@ export class UsersRepository {
 
   async findAll(): Promise<User[]> {
     return await this.userModel.find();
+  }
+
+  async validatePassword(user: User, password: string): Promise<boolean> {
+    return bcrypt.compare(password, user.password);
   }
 }
