@@ -4,6 +4,7 @@ import { UsersService } from '../services/users.service';
 import { Events } from '@common/constants/events';
 import { RegisterUserDto } from '@common/dtos/register-user.dto';
 import { UserRto } from '@common/rtos/user.rto';
+import { LoginUserDto } from '@common/dtos/login-user.dto';
 
 @Controller()
 export class UsersController {
@@ -17,5 +18,10 @@ export class UsersController {
   @MessagePattern(Events.ListUsers)
   async listUsers(): Promise<UserRto[]> {
     return await this.usersService.list();
+  }
+
+  @MessagePattern(Events.Login)
+  async login(loginUserDto: LoginUserDto): Promise<string> {
+    return await this.usersService.login(loginUserDto);
   }
 }

@@ -13,6 +13,10 @@ async function bootstrap() {
       'Gateway exposing HTTP API and forwarding to authentication microservice',
     )
     .setVersion('1.0')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      'JWT',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

@@ -61,6 +61,7 @@ export class UsersService {
       process.env.JWT_SECRET || 'secret',
       { expiresIn: '1h' },
     );
+    console.log('token:', token);
 
     return token;
   }
